@@ -1,5 +1,8 @@
 //Abraham Hussain 
 
+// We have both added stuff and commited to the github
+// - Spencer
+
 #include "player.h"
 
 /*
