@@ -95,7 +95,6 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     }
     if(testingMinimax)
     {
-        std::cerr << "hi";
         for(i = 0; i < v.size(); i++)
     {
 
