@@ -51,9 +51,9 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
      unsigned int i,j, k,l;
      int ours, theirs;
-     double current_val = INT_MAX;
+     double current_val = INT_MIN;
      double new_val;
-     double best_worst_val = INT_MIN;
+     double best_worst_val = INT_MAX;
      Side opponent_side;
      std::vector<Move> v;
      std::vector<Move> their_moves;
@@ -93,8 +93,10 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
             }
         }
     }
-
-    for(i = 0; i < v.size(); i++)
+    if(testingMinimax)
+    {
+        std::cerr << "hi";
+        for(i = 0; i < v.size(); i++)
     {
 
         m = &v[i];
@@ -127,6 +129,37 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
 
        
+<<<<<<< HEAD
+=======
+            if( new_val < best_worst_val)
+            {
+
+                best_worst_val = new_val;
+            }
+
+        }
+
+        if( best_worst_val > current_val)
+        {
+            current_best -> setX(v[i].getX());
+            current_best -> setY(v[i].getY());
+            current_val = best_worst_val;
+        }
+
+    }
+
+    board -> doMove(current_best, Myside);
+    return current_best;
+    }
+    else
+    {
+    for(i = 0; i < v.size(); i++)
+    {
+
+        m = &v[i];
+        temp = board -> copy();
+        temp -> doMove(m, Myside);   
+>>>>>>> aec9649bdb93f883791468c09da9d18478131309
         if (new_val > 0)
         {
             //corners are good, and outer edge
@@ -222,6 +255,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
             }       
         }
     }
+<<<<<<< HEAD
     
 
             if( new_val < current_val)
@@ -229,18 +263,19 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
                 current_val = new_val;
             }
+=======
+>>>>>>> aec9649bdb93f883791468c09da9d18478131309
 
-        }
 
-        if( current_val > best_worst_val)
+        if( new_val > current_val)
         {
             current_best -> setX(v[i].getX());
             current_best -> setY(v[i].getY());
-            best_worst_val = current_val;
+            current_val = new_val;
         }
 
     }
-
+}
     board -> doMove(current_best, Myside);
     return current_best;
     
