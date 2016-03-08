@@ -112,6 +112,20 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         {
             new_val = new_val * 2;
         }
+        
+        if(m -> getX() == 0 || m -> getX() == 7) {
+		    if (m -> getY() == 1 || m -> getY() == 6) {
+				new_val = new_val * -2;
+			}	
+		}
+		
+		if(m -> getX() == 1 || m -> getX() == 6) {
+		    if (m -> getY() == 1 || m -> getY() == 6 || 
+		    m -> getY() == 0 || m -> getY() == 7) {
+				new_val = new_val * -2;
+			} 		
+		}
+		
 
         if( new_val > current_val)
         {
