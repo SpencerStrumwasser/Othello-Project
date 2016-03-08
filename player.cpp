@@ -126,7 +126,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
             new_val = ours - theirs;
 
 
-       /*
+       
         if (new_val > 0)
         {
             //corners are good, and outer edge
@@ -222,7 +222,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
             }       
         }
     }
-    */
+    
 
             if( new_val < current_val)
             {
