@@ -97,6 +97,8 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         ours = temp -> count(Myside);
         theirs = temp -> count(opponent_side);
         new_val = ours - theirs;
+        if (new_val > 0)
+        {
         if(m -> getX() == 0 || m -> getX() == 7)
         {
             if(m -> getY() == 0 || m -> getY() == 7)
@@ -125,8 +127,56 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 				new_val = new_val * -2;
 			} 		
 		}
-		
+		if(m -> getX() == 1 || m -> getX() == 6) {
+            if (m -> getY() != 1 || m -> getY() != 6 || 
+            m -> getY() != 0 || m -> getY() != 7) {
+                new_val = new_val * -1;
+            }       
+        }
+        if(m -> getY() == 1 || m -> getY() == 6) {
+            if (m -> getX() != 1 || m -> getX() != 6 || 
+            m -> getX() != 0 || m -> getX() != 7) {
+                new_val = new_val * -1;
+            }       
+        }
+    }
+    else
+    {
+                if(m -> getX() == 0 || m -> getX() == 7)
+        {
+            if(m -> getY() == 0 || m -> getY() == 7)
+            {
+                new_val = new_val * - 1;
+            }
 
+        }
+
+        
+        if(m -> getX() == 0 || m -> getX() == 7) {
+            if (m -> getY() == 1 || m -> getY() == 6) {
+                new_val = new_val * 3;
+            }   
+        }
+        
+        if(m -> getX() == 1 || m -> getX() == 6) {
+            if (m -> getY() == 1 || m -> getY() == 6 || 
+            m -> getY() == 0 || m -> getY() == 7) {
+                new_val = new_val * 3;
+            }       
+        }
+        if(m -> getX() == 1 || m -> getX() == 6) {
+            if (m -> getY() != 1 || m -> getY() != 6 || 
+            m -> getY() != 0 || m -> getY() != 7) {
+                new_val = new_val * 2;
+            }       
+        }
+        if(m -> getY() == 1 || m -> getY() == 6) {
+            if (m -> getX() != 1 || m -> getX() != 6 || 
+            m -> getX() != 0 || m -> getX() != 7) {
+                new_val = new_val * 2;
+            }       
+        }
+    }
         if( new_val > current_val)
         {
             current_best -> setX(m -> getX());
