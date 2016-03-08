@@ -4,6 +4,8 @@
 // - Spencer
 
 #include "player.h"
+#include <vector>
+#include <climits>
 
 /*
  * Constructor for the player; initialize everything here. The side your AI is
@@ -46,10 +48,16 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */ 
-     int i,j;
+     unsigned int i,j;
+     int ours, theirs,  new_val;
+     int current_val = INT_MIN;
      Side opponent_side;
-     Move *m = new Move(0,0);
+     std::vector<Move> v;
 
+     Move *m = new Move(0,0);
+     Move mov = Move(0, 0);
+     Move *current_best = new Move(0,0);
+     Board* temp = new Board();
      if(Myside == WHITE)
      {
         opponent_side = BLACK;
@@ -67,16 +75,54 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      {
         for(j = 0; j < 8; j++)
         {
-            m -> setX(j);
-            m -> setY(i);
+            m -> setX(i);
+            m -> setY(j);
 
             if(board -> checkMove(m, Myside))
             {
-                board -> doMove(m, Myside);
-                return m;
+
+                mov = *m;
+                v.push_back(mov);
+
             }
         }
     }
-    return NULL;
+
+    for(i = 0; i < v.size(); i++)
+    {
+
+        m = &v[i];
+        temp = board -> copy();
+        temp -> doMove(m, Myside);
+        ours = temp -> count(Myside);
+        theirs = temp -> count(opponent_side);
+        new_val = ours - theirs;
+        if(m -> getX() == 0 || m -> getX() == 7)
+        {
+            if(m -> getY() == 0 || m -> getY() == 7)
+            {
+                new_val = new_val * 3;
+            }
+            else
+            {
+                new_val = new_val * 2;
+            }
+        }
+        if(m -> getY() == 0 || m -> getY() == 7)
+        {
+            new_val = new_val * 2;
+        }
+
+        if( new_val > current_val)
+        {
+            current_best -> setX(m -> getX());
+            current_best -> setY(m -> getY());
+            current_val = new_val;
+        }
+
+    }
+
+    board -> doMove(current_best, Myside);
+    return current_best;
     
 }
