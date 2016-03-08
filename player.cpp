@@ -12,7 +12,8 @@
  */
 Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
-    Board* board = new Board();
+    board = new Board();
+    Myside = side;
     testingMinimax = false;
 
     /* 
@@ -47,17 +48,18 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      */ 
      int i,j;
      Side opponent_side;
-     Move *m;
-     if(side == WHITE)
+     Move *m = new Move(0,0);
+
+     if(Myside == WHITE)
      {
-        opponent_side = Black;
+        opponent_side = BLACK;
      }
      else
      {
         opponent_side = WHITE;
      }
-     board.doBoard(opponentsMove, opponent_side);
-     if(!(board.hasMoves(side))
+     board -> doMove(opponentsMove, opponent_side);
+     if(!(board -> hasMoves(Myside)))
      {
         return NULL;
      }
@@ -65,13 +67,16 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      {
         for(j = 0; j < 8; j++)
         {
-            m.setX(i);
-            m.setY(j);
-            if(board.checkMove(m, side))
+            m -> setX(j);
+            m -> setY(i);
+
+            if(board -> checkMove(m, Myside))
             {
+                board -> doMove(m, Myside);
                 return m;
             }
         }
     }
+    return NULL;
     
 }
